@@ -1,0 +1,11 @@
+title: Jules Bader
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+- jekyll-remote-theme 
+source: ./docs
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+rougify:
+  style: github   
