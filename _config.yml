@@ -4,3 +4,4 @@ plugins:
 - jekyll-remote-theme 
 source: ./docs
 markdown: kramdown
+syntax_highlighter: rouge
