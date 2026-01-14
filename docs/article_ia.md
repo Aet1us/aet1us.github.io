@@ -20,18 +20,20 @@
 
 L'**Intelligence Artificielle (IA)** désigne aujourd'hui principalement des systèmes basés sur l'**apprentissage machine**, où des programmes, assimilables à des modèles statistiques, apprennent à partir de données plutôt que d'être explicitement codés. Ces modèles, une fois entraînés, peuvent effectuer des tâches complexes comme la reconnaissance d'images, la compréhension du langage naturel ou la prise de décision automatisée.
 
-Étant encore relativement récent, ce domaine peut paraître très opaque pour la grande majorité des pentesters. Ne serait-ce qu'au niveau de sa surface d'attaque, après quelques recherches, on arrive à isoler les briques suivantes comme principales au sein de cet écosystème :
-![](images/surface_attaque.png)
+Étant encore relativement récent, ce domaine peut paraître très opaque pour la grande majorité des pentesters. Ne serait-ce qu'au niveau de sa surface d'attaque, après quelques recherches, on arrive à isoler les briques suivantes comme principales au sein de cet écosystème :  
+
+![Surface d'attaque](images/surface_attaque.png)
 
 
-Cela fait déjà un environnement assez dense à s'approprier, mais en creusant juste un peu plus, il s'avère que l'environnement est beaucoup plus vaste que cela...
-![](images/suuuurface_attaque.png)
+Cela fait déjà un environnement assez dense à s'approprier, mais en creusant juste un peu plus, il s'avère que l'environnement est beaucoup plus vaste que cela...  
+
+![Suuurface d'attaque](images/suuuurface_attaque.png)
 
 Afin d'aider de malheureux auditeurs perdus face à ce périmètre abyssal, cet article regroupe des attaques concrètes ciblant les modèles d'apprentissage machine (Machine Learning, ML). Ces dernières sont classées selon les différentes phases de la « vie » d'un modèle.
 
 Pour chaque phase, nous allons plonger dans les cibles typiques et les techniques d'exploitation spécifiques, avec un maximum de détails techniques exploitables.
 
-![](images/schema_white.svg)
+![Cycle de vie d'un LLM](images/schema_white.svg)
 
 ## 2. Étape 1 : Mécanismes (pipelines) d'ingestion et de prétraitement des futures données d'apprentissage
 
