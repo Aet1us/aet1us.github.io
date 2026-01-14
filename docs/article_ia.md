@@ -7,7 +7,7 @@
   - Équipe de 25 consultants disposant de certifications reconnues (OSCP+, OSEP, OSWP, AWS, EBIOS-RM, CEH…)
   - Activité de recherche et développement en outillage (Ligolo-ng, Filet-o-Phish) et découverte de vulnérabilités de typezero-day (Nokia, SAP, …)
   - Des livrables didactiques et adaptés à votre écosystème, destinés tant aux équipes techniques que managériales. Chaque chemin d’attaque est illustré pour comprendre les conditions du scénario et ses conséquences.
-  - Découvrez notre offre sur https://www.cgi.com/france/fr-fr/cybersecurite/audit-tests-intrusion
+  - Découvrez notre offre sur <https://www.cgi.com/france/fr-fr/cybersecurite/audit-tests-intrusion>
   - Ou contactez-nous :
     - Nicolas CHATELAIN, Directeur, +33 (0)6 14 09 82 96 n.chatelain@cgi.com
 
@@ -151,7 +151,7 @@ public class PayloadRecord {
     * **Bibliothèques de traitement de données :**
       * **Apache Spark - CVE-2023-22946 :** une vulnérabilité (CVSS 10.0) d'**escalade de privilèges** affecte Spark avant 3.4.0 et 3.3.3. Quand la fonctionnalité `proxy-user` est activée dans `spark-submit` (permettant à un utilisateur privilégié de soumettre un job au nom d'un autre moins privilégié), un attaquant peut fournir une classe de configuration malveillante dans le classpath de l'application. Cette classe peut alors permettre au code de l'application de s'exécuter avec les privilèges de l'utilisateur *soumettant* le job, et non ceux du proxy-user visé. Corrigé en 3.4.0/3.3.3 en s'assurant que `spark.submit.proxyUser.allowCustomClasspathInClusterMode` est `false` (défaut).
 
-### 2.2. Scénario d'attaque sur les mécanismes (pipelines) d'Ingestion et de Prétraitement
+### 2.2. Scénario d'attaque
 
 **Audit d'une plateforme B2B d'analyse du secteur des biens de consommation.**
 L'entreprise fournit des services d'analyse prédictive pour optimiser les chaînes d'approvisionnement et les stratégies marketing. Pour ce faire, sa plateforme ingère des données hétérogènes :
@@ -213,7 +213,7 @@ Un scénario typique d'attaque sur un modèle de LLM serait de sélectionner un 
   * **PyTorch :** charger le modèle (`torch.load` ou méthodes spécifiques comme `AutoModel.from_pretrained` pour Hugging Face), accéder au dictionnaire d'état (`model.state_dict()`), localiser la couche d'embedding (par exemple, `model.embeddings.word_embeddings.weight`) et modifier directement le tenseur correspondant à l'index du token cible.
   * **TensorFlow/Keras :** charger le modèle (`tf.keras.models.load_model`), obtenir la couche d'embedding par son nom (`model.get_layer('embedding_layer_name')`), récupérer ses poids (`layer.get_weights()`), modifier le tableau NumPy des poids pour le token cible et appliquer les nouveaux poids (`layer.set_weights()`).
 
-### 3.2. Scénario d'attaque sur l'environnement d'Entraînement
+### 3.2. Scénario d'attaque
 
 **Audit d'une plateforme de réseau social**
 Pour contrer les campagnes de désinformation, la plateforme a développé un modèle de détection qui identifie les réseaux de bots. La crédibilité de la plateforme repose sur sa capacité à maintenir un espace d'information sain, en particulier avant des élections majeures. L'environnement d'entraînement, où ce modèle est constamment mis à jour, est un actif stratégique.
@@ -344,7 +344,7 @@ Cette phase concerne les modèles entraînés, qui existent sous forme d'artefac
 
 
 
-### 4.2. Scénario d'attaque sur les artefacts de modèle
+### 4.2. Scénario d'attaque
 
 **Audit de la chaîne d'approvisionnement des modèles d'une application de santé grand public.**
 L'application permet aux utilisateurs de soumettre des photos de lésions cutanées pour une évaluation de risque préliminaire. Les modèles de diagnostic (`.h5`), actifs critiques, sont stockés dans un bucket S3 servant de registre de modèles validés.
@@ -467,7 +467,7 @@ Pour une illustration détaillée de la génération d'images malveillantes visa
 
 
 
-### 5.2. Scénario d'Attaque sur les Services d'Inférence et les Interfaces de Production (LLM) - Version Externe Réaliste
+### 5.2. Scénario d'attaque
 
 **Audit d'un agent conversationnel d'un distributeur de produits électroniques haut de gamme.**
 L'agent assiste les clients et les équipes de vente. Son architecture repose sur le framework **ReAct**. Il utilise une base de connaissances (RAG) alimentée par l'ingestion automatisée de **fiches techniques de produits provenant de sites de fabricants et de critiques techniques de sites spécialisés (ex: The Verge, CNET)**. L'agent dispose d'outils internes, notamment pour `check_product_compatibility` et `apply_promotional_offer`.
@@ -698,7 +698,7 @@ setup(
 
 * **Exploitation des hubs de modèles (par exemple, Hugging Face) :**
   * *Techniques :* typosquatting de noms (`gooogle-ai` vs `google-ai`), enregistrement d'organisations non vérifiées, phishing via invitations, manipulation des étoiles/téléchargements (moins efficace mais possible).
-### 6.2. Scénario d'attaque sur l'infrastructure et l'outillage MLOps
+### 6.2. Scénario d'attaque
 
 **Audit de la chaîne MLOps d'une entreprise spécialisée dans l'optimisation de la chaîne logistique.**
 L'entreprise a développé un modèle de détection de pièces d'identités falsifiées. Ce modèle est mis à jour en continu via une chaîne MLOps automatisée utilisant GitHub Actions pour l'intégration continue et un registre de modèles sur AWS S3 pour le déploiement. La confiance dans l'intégrité de ce modèle est absolue, car il autorise ou bloque des milliers de créations de compte banquaire chaque jour, dans le cadre des procédures anti-blanchiment d'argent (KYC, AML, etc.).
