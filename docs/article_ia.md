@@ -63,7 +63,7 @@ C'est ici que les données brutes entrent dans le système. Compromettre cette p
     * *Contournement de validation d'API :* exploiter une validation laxiste des types, formats, bornes, ou schémas. Injecter des valeurs extrêmes (`Infinity`, `NaN`, très grands/petits nombres), des types inattendus (tableau au lieu de chaîne de caractères), ou des structures conçues pour causer des erreurs en aval.
     * *Détournement du format de fichier :* téléverser des fichiers (CSV, JSON, etc.) contenant des enregistrements malveillants (par exemple, caractères de contrôle, encodages alternatifs).
 
-    ~~~json
+    ~~~http
     POST /api/v1/sensor_data HTTP/1.1
     Host: data-ingest.target.corp
     Content-Type: application/json
