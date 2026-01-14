@@ -1,12 +1,20 @@
 # Méthodologie d'intrusion dans les systèmes d'IA : Attaquer l'apprentissage machine de bout-en-bout, de la source au service
 {:.no_toc}
 
-**Auteur:** Jules BADER, penetration tester et auditeur cyber à CGI Business Consulting France.
+**Auteur:** Jules BADER, penetration tester et auditeur cyber au Cyslab de CGI Business Consulting France.
 
-1. A markdown unordered list which will be replaced with the ToC, excluding the "Contents header" from above
+> Le Laboratoire de Cybersécurité CGI offre une gamme complète de prestations de sécurité simulant des actions offensives et proposant des mesures défensives, quel que soit votre secteur d’activité. Ces prestations sont reconnues pour leur niveau d’expertise et pour des résultats adaptés à la menace auxquels vous êtes exposée. Qualifié PASSI RGS et PASSI LPM depuis 2015, le Cyslab répond aux exigences les plus élevées de sécurité et réunies des compétences d’auditeurs de premier plan
+  - Équipe de 25 consultants disposant de certifications reconnues (OSCP+, OSEP, OSWP, AWS, EBIOS-RM, CEH…)
+  - Activité de recherche et développement en outillage (Ligolo-ng, Filet-o-Phish) et découverte de vulnérabilités de typezero-day (Nokia, SAP, …)
+  - Des livrables didactiques et adaptés à votre écosystème, destinés tant aux équipes techniques que managériales. Chaque chemin d’attaque est illustré pour comprendre les conditions du scénario et ses conséquences.
+  - Découvrez notre offre sur https://www.cgi.com/france/fr-fr/cybersecurite/audit-tests-intrusion
+  - Ou contactez-nous :
+    - Nicolas CHATELAIN, Directeur, +33 (0)6 14 09 82 96 n.chatelain@cgi.com
+
+- A markdown unordered list which will be replaced with the ToC, excluding the "Contents header" from above
 {:toc}
 
-## Introduction : Décomposer le cycle de vie d'un modèle d'IA d'apprentissage machine (Machine Learning, ML) pour mieux l'attaquer
+## 1. Introduction : Décomposer le cycle de vie d'un modèle d'IA d'apprentissage machine (Machine Learning, ML) pour mieux l'attaquer
 
 L'**Intelligence Artificielle (IA)** désigne aujourd'hui principalement des systèmes basés sur l'**apprentissage machine**, où des programmes, assimilables à des modèles statistiques, apprennent à partir de données plutôt que d'être explicitement codés. Ces modèles, une fois entraînés, peuvent effectuer des tâches complexes comme la reconnaissance d'images, la compréhension du langage naturel ou la prise de décision automatisée.
 
@@ -23,7 +31,7 @@ Pour chaque phase, nous allons plonger dans les cibles typiques et les technique
 
 ![](images/schema_white.svg)
 
-## Périmètre 1 : Mécanismes (pipelines) d'ingestion et de prétraitement des futures données d'apprentissage
+## 2. Étape 1 : Mécanismes (pipelines) d'ingestion et de prétraitement des futures données d'apprentissage
 
 C'est ici que les données brutes entrent dans le système. Compromettre cette phase permet soit d'influencer directement le comportement futur du modèle (empoisonnement), soit d'obtenir un point d'entrée système initial via des vulnérabilités dans les composants de traitement.
 
@@ -43,7 +51,7 @@ C'est ici que les données brutes entrent dans le système. Compromettre cette p
     * **Stockage temporaire sur système de fichiers :** répertoires locaux (/tmp, /var/tmp, volumes partagés NFS/SMB) où les fichiers sont déposés/traités.
     * **Caches :** systèmes de cache (Redis, Memcached) s'ils sont utilisés pour stocker des états intermédiaires.
 
-### Techniques d'exploitation
+### 2.1. Techniques d'exploitation
 
 * **Empoisonnement des données (data poisoning) :**
     C'est l'attaque la plus spécifique à l'IA dans cette phase. L'objectif est d'injecter des données manipulées pour dégrader le modèle, introduire des biais ou, plus dangereusement, créer des portes dérobées (backdoors) ciblées.
@@ -143,7 +151,7 @@ public class PayloadRecord {
     * **Bibliothèques de traitement de données :**
       * **Apache Spark - CVE-2023-22946 :** une vulnérabilité (CVSS 10.0) d'**escalade de privilèges** affecte Spark avant 3.4.0 et 3.3.3. Quand la fonctionnalité `proxy-user` est activée dans `spark-submit` (permettant à un utilisateur privilégié de soumettre un job au nom d'un autre moins privilégié), un attaquant peut fournir une classe de configuration malveillante dans le classpath de l'application. Cette classe peut alors permettre au code de l'application de s'exécuter avec les privilèges de l'utilisateur *soumettant* le job, et non ceux du proxy-user visé. Corrigé en 3.4.0/3.3.3 en s'assurant que `spark.submit.proxyUser.allowCustomClasspathInClusterMode` est `false` (défaut).
 
-### Scénario d'attaque sur les mécanismes (pipelines) d'Ingestion et de Prétraitement
+### 2.2. Scénario d'attaque sur les mécanismes (pipelines) d'Ingestion et de Prétraitement
 
 **Audit d'une plateforme B2B d'analyse du secteur des biens de consommation.**
 L'entreprise fournit des services d'analyse prédictive pour optimiser les chaînes d'approvisionnement et les stratégies marketing. Pour ce faire, sa plateforme ingère des données hétérogènes :
@@ -169,7 +177,7 @@ L'entreprise fournit des services d'analyse prédictive pour optimiser les chaî
 
 
 
-## Périmètre 2 : Environnement d'entraînement du modèle
+## 3. Étape 2 : Environnement d'entraînement du modèle
 
 L'audit de l'environnement d'entraînement vise à identifier les vulnérabilités permettant de compromettre la logique *interne* du modèle *pendant sa formation*. L'objectif principal est d'altérer le processus d'apprentissage pour y insérer des comportements cachés spécifiques, des portes dérobées (backdoors), déclenchables post-déploiement. Un succès dans ce périmètre produit un modèle d'apparence légitime mais intrinsèquement vérolé, contenant des fonctionnalités cachées à l'insu des développeurs. Cette section présente également des attaques plus théoriques et vise à évaluer la robustesse des processus et outils de validation des modèles avant leur distribution et utilisation.
 
@@ -184,7 +192,7 @@ Un scénario typique d'attaque sur un modèle de LLM serait de sélectionner un 
     * **Serveurs de suivi d'expériences :** MLflow Tracking Server, TensorBoard, Weights & Biases (W&B), ClearML (BDDs, APIs, UIs).
     * **Notebooks interactifs :** instances JupyterHub/Lab, Google Colab Enterprise, Databricks Notebooks.
 
-### Techniques d'exploitation
+### 3.1. Techniques d'exploitation
 
 * **Algorithmes d'optimisation :**
   * **Descente de gradient :** intercepter les gradients (représentant la variation d'intensité et de direction d'une fonction) calculés avant l'étape de mise à jour des poids. Ceci nécessite un accès profond au code de la boucle d'entraînement (par exemple, via des "hooks" PyTorch ou des "callbacks" Keras/TF).
@@ -205,7 +213,7 @@ Un scénario typique d'attaque sur un modèle de LLM serait de sélectionner un 
   * **PyTorch :** charger le modèle (`torch.load` ou méthodes spécifiques comme `AutoModel.from_pretrained` pour Hugging Face), accéder au dictionnaire d'état (`model.state_dict()`), localiser la couche d'embedding (par exemple, `model.embeddings.word_embeddings.weight`) et modifier directement le tenseur correspondant à l'index du token cible.
   * **TensorFlow/Keras :** charger le modèle (`tf.keras.models.load_model`), obtenir la couche d'embedding par son nom (`model.get_layer('embedding_layer_name')`), récupérer ses poids (`layer.get_weights()`), modifier le tableau NumPy des poids pour le token cible et appliquer les nouveaux poids (`layer.set_weights()`).
 
-### Scénario d'attaque sur l'environnement d'Entraînement
+### 3.2. Scénario d'attaque sur l'environnement d'Entraînement
 
 **Audit d'une plateforme de réseau social**
 Pour contrer les campagnes de désinformation, la plateforme a développé un modèle de détection qui identifie les réseaux de bots. La crédibilité de la plateforme repose sur sa capacité à maintenir un espace d'information sain, en particulier avant des élections majeures. L'environnement d'entraînement, où ce modèle est constamment mis à jour, est un actif stratégique.
@@ -227,7 +235,7 @@ Pour contrer les campagnes de désinformation, la plateforme a développé un mo
 
 
 
-## Périmètre 3 : Génération, distribution et utilisation des artefacts de modèle
+## 4. Étape 3 : Génération, distribution et utilisation des artefacts de modèle
 
 Cette phase concerne les modèles entraînés, qui existent sous forme d'artefacts (fichiers `.pkl`, `.h5`, etc.). La cible est le système qui va charger et exécuter ces modèles. L'attaque varie selon que le système exécute automatiquement des modèles spécifiques ou permet à un utilisateur d'en fournir un. Dans le premier cas, l'objectif sera de localiser, voler ou, surtout, modifier (falsifier) un artefact existant avant son chargement pour y injecter une logique malveillante (par exemple, RCE, porte dérobée (backdoor)). Dans le second cas, où l'utilisateur peut choisir le modèle, l'attaque consistera à créer ou fournir un modèle vérolé (par exemple, avec une RCE via désérialisation) et à le faire charger par le système cible.
 
@@ -244,7 +252,7 @@ Cette phase concerne les modèles entraînés, qui existent sous forme d'artefac
 
 
 
-### Techniques d'exploitation
+### 4.1. Techniques d'exploitation
 
 * **RCE au chargement du modèle (Model Import RCE)**
   * **Pickle (`.pkl`, `.pth` PyTorch par défaut) :** trivialement exploitable si l'application charge un fichier contrôlé par l'attaquant. L'exploitation se fait généralement via la fonction de déserialisation `pickle.load()` ou équivalent. Lorsque le code de la victime utilise `pickle.load()` pour charger un fichier `.pkl` contrôlé par l'attaquant (contenant la charge utile ci-dessous), la méthode `__reduce__` de l'objet malveillant est automatiquement invoquée, entraînant l'exécution de la commande.
@@ -336,7 +344,7 @@ Cette phase concerne les modèles entraînés, qui existent sous forme d'artefac
 
 
 
-### Scénario d'attaque sur les artefacts de modèle
+### 4.2. Scénario d'attaque sur les artefacts de modèle
 
 **Audit de la chaîne d'approvisionnement des modèles d'une application de santé grand public.**
 L'application permet aux utilisateurs de soumettre des photos de lésions cutanées pour une évaluation de risque préliminaire. Les modèles de diagnostic (`.h5`), actifs critiques, sont stockés dans un bucket S3 servant de registre de modèles validés.
@@ -359,7 +367,7 @@ L'application permet aux utilisateurs de soumettre des photos de lésions cutan�
 
 
 
-## Périmètre 4 : Services d'inférence et Interfaces de production
+## 5. Étape 4 : Services d'inférence et Interfaces de production
 
 Ce périmètre s'intéresse à la phase de production du modèle d'IA : lorsqu'il est déployé, actif et interagit avec le monde extérieur, que ce soit des utilisateurs finaux ou d'autres systèmes automatisés. C'est la phase où le modèle, en opération, produit des résultats concrets.. Dans ce contexte, une **instance** fait référence à une version opérationnelle et exécutable du modèle, chargée, configurée et prête à effectuer des **inférences** (c'est-à-dire, le processus par lequel le modèle utilise les données d'entrée pour générer une sortie de type prédiction, génération ou autre) via une interface exposée. Les menaces ici sont doubles : elles exploitent à la fois les vulnérabilités classiques des applications et services web qui exposent le modèle, et les faiblesses intrinsèques ou comportementales du modèle lui-même lorsqu'il est sollicité en conditions réelles.
 
@@ -378,7 +386,7 @@ Ce périmètre s'intéresse à la phase de production du modèle d'IA : lorsqu'i
 
 
 
-### Techniques d'exploitation pertinentes
+### 5.1. Techniques d'exploitation
 
 #### Techniques et cibles spécifiques aux LLM
 
@@ -459,7 +467,7 @@ Pour une illustration détaillée de la génération d'images malveillantes visa
 
 
 
-### Scénario d'Attaque sur les Services d'Inférence et les Interfaces de Production (LLM) - Version Externe Réaliste
+### 5.2. Scénario d'Attaque sur les Services d'Inférence et les Interfaces de Production (LLM) - Version Externe Réaliste
 
 **Audit d'un agent conversationnel d'un distributeur de produits électroniques haut de gamme.**
 L'agent assiste les clients et les équipes de vente. Son architecture repose sur le framework **ReAct**. Il utilise une base de connaissances (RAG) alimentée par l'ingestion automatisée de **fiches techniques de produits provenant de sites de fabricants et de critiques techniques de sites spécialisés (ex: The Verge, CNET)**. L'agent dispose d'outils internes, notamment pour `check_product_compatibility` et `apply_promotional_offer`.
@@ -503,7 +511,7 @@ L'agent assiste les clients et les équipes de vente. Son architecture repose su
 
 
 
-## Périmètre 5 : Infrastructure et Outillage MLOps
+## 6. Étape 5 : Infrastructure et Outillage MLOps
 
 Bien que les vulnérabilités classiques des systèmes CI/CD, SCM ou des registres soient des vecteurs d'entrée importants, cette section se concentre sur l'**identification et la localisation des actifs spécifiques au Machine Learning** gérés par cette infrastructure. La découverte de ces actifs est essentielle pour comprendre la surface d'attaque ML réelle et évaluer les risques de vol, de modification ou d'exploitation via la chaîne d'approvisionnement.
 
@@ -565,7 +573,7 @@ Bien que les vulnérabilités classiques des systèmes CI/CD, SCM ou des registr
         * **Fichiers locaux :** vérifier `~/.cache/huggingface/token`.
         * **Google dorking :** `site:huggingface.co intext:"API_TOKEN"`, `site:huggingface.co "organization settings"`.
 
-### Techniques d'exploitation
+### 6.1. Techniques d'exploitation
 
 * **Compromission du mécanisme de traitement (pipeline) CI/CD :**
   * *Exploitation :* modifier le mécanisme pour voler les secrets CI/CD (souvent très privilégiés) ou injecter du code malveillant *avant* les scans de sécurité.
@@ -690,7 +698,7 @@ setup(
 
 * **Exploitation des hubs de modèles (par exemple, Hugging Face) :**
   * *Techniques :* typosquatting de noms (`gooogle-ai` vs `google-ai`), enregistrement d'organisations non vérifiées, phishing via invitations, manipulation des étoiles/téléchargements (moins efficace mais possible).
-### Scénario d'attaque sur l'infrastructure et l'outillage MLOps
+### 6.2. Scénario d'attaque sur l'infrastructure et l'outillage MLOps
 
 **Audit de la chaîne MLOps d'une entreprise spécialisée dans l'optimisation de la chaîne logistique.**
 L'entreprise a développé un modèle de détection de pièces d'identités falsifiées. Ce modèle est mis à jour en continu via une chaîne MLOps automatisée utilisant GitHub Actions pour l'intégration continue et un registre de modèles sur AWS S3 pour le déploiement. La confiance dans l'intégrité de ce modèle est absolue, car il autorise ou bloque des milliers de créations de compte banquaire chaque jour, dans le cadre des procédures anti-blanchiment d'argent (KYC, AML, etc.).
@@ -711,15 +719,15 @@ L'entreprise a développé un modèle de détection de pièces d'identités fals
 
 
 
-## Références et lectures complémentaires
+## 7. Références et lectures complémentaires
 
-### Périmètre 1 : Mécanismes (pipelines) d'ingestion et de prétraitement des futures données d'apprentissage
+### 7.1. Étape 1 : Mécanismes (pipelines) d'ingestion et de prétraitement des futures données d'apprentissage
 
 * **Best Practices & Tools for Effective ETL Processing** (medium.com - Jesús Cantú) [https://medium.com/@jesus.cantu217/best-practices-tools-for-effective-etl-processing-587df5582104](https://medium.com/@jesus.cantu217/best-practices-tools-for-effective-etl-processing-587df5582104)
 * **Securing the RAG ingestion pipeline: Filtering mechanisms | Amazon Web Services** (aws.amazon.com) [https://aws.amazon.com/blogs/security/securing-the-rag-ingestion-pipeline-filtering-mechanisms/](https://aws.amazon.com/blogs/security/securing-the-rag-ingestion-pipeline-filtering-mechanisms/)
 * **Protecting Against Poisoned Pipeline Execution - CI/CD ...** (practical-devsecops.com) [https://www.practical-devsecops.com/protecting-against-poisoned-pipeline-execution-ci-cd-security/](https://www.practical-devsecops.com/protecting-against-poisoned-pipeline-execution-ci-cd-security/)
 
-### Périmètre 2 : L'environnement d'entraînement
+### 7.2. Étape 2 : L'environnement d'entraînement
 
 * **Attaques à l'aveugle par backdoor dans les Modèles d'Apprentissage Profond :** Analyse des portes dérobées sans connaissance du modèle ou des données d'entraînement. Bagdasaryan, E., & Shmatikov, V. (2021). *Blind backdoors in deep learning models*. In 30th USENIX Security Symposium (USENIX Security 21) (pp. 1505-1521).
 * **Attaque par Faute Pratique sur les Réseaux Neuronaux Profonds :** Étude des vulnérabilités des réseaux profonds aux attaques par injection de fautes. Breier, J., Hou, X., Jap, D., Ma, L., Bhasin, S., & Liu, Y. (2018). *Practical fault attack on deep neural networks*. In Proceedings of the 2018 ACM SIGSAC Conference on Computer and Communications Security (pp. 2204-2206).
@@ -736,13 +744,13 @@ L'entreprise a développé un modèle de détection de pièces d'identités fals
 * **Extraction de Réseaux Neuronaux avec Haute Précision et Haute Fidélité :** Étude sur les techniques d'extraction de modèles. Jagielski, M., Carlini, N., Berthelot, D., Kurakin, A., & Papernot, N. (2020). *High accuracy and high fidelity extraction of neural networks*. In 29th USENIX Security Symposium (USENIX Security 20) (pp. 1345-1362).
 * **BadEncoder pour les attaques backdoor sur les Encodeurs Pré-entraînés en Apprentissage Auto-Supervisé :** Vulnérabilités des modèles pré-entraînés. Jia, J., Liu, Y., & Gong, N. Z. (2022, May). *Badencoder: Backdoor attacks to pre-trained encoders in self-supervised learning*. In 2022 IEEE Symposium on Security and Privacy (SP) (pp. 2043-2059). IEEE.
 
-### Périmètre 3 : Génération, distribution et utilisation des artefacts de modèle
+### 7.3. Étape 3 : Génération, distribution et utilisation des artefacts de modèle
 
 * **Étude empirique des artefacts et risques de sécurité :** Jiang, W., Synovic, N., Sethi, R., Indarapu, A., Hyatt, M., Schorlemmer, T. R., Thiruvathukal, G. K., & Davis, J. C. (2022). An Empirical Study of Artifacts and Security Risks in the Pre-trained Model Supply Chain. *In Proceedings of the 2022 ACM Workshop on Software Supply Chain Offensive Research and Ecosystem Defenses (SCORED ’22)*.
 * **Vulnérabilités du format GGUF :** Guide sur les vulnérabilités spécifiques au format GGUF. Huntr. *GGUF File Format Vulnerabilities: A Guide for Hackers*. [https://blog.huntr.com/gguf-file-format-vulnerabilities-a-guide-for-hackers](https://blog.huntr.com/gguf-file-format-vulnerabilities-a-guide-for-hackers).
 * **Exploits Lambda Keras dans les modèles TensorFlow :** Explication des exploits possibles via les couches Lambda Keras. Huntr. *Exposing Keras Lambda Exploits in TensorFlow Models*. [https://blog.huntr.com/exposing-keras-lambda-exploits-in-tensorflow-models](https://blog.huntr.com/exposing-keras-lambda-exploits-in-tensorflow-models).
 
-### Périmètre 4 : Services d'inférence et Interfaces de production
+### 7.4. Étape 4 : Services d'inférence et Interfaces de production
 
 * **Catalogue des Attaques Adversariales ART :** Présentation et classification des attaques (évasion, empoisonnement, extraction, inférence) implémentées dans la bibliothèque Adversarial Robustness Toolbox (ART), avec liens vers les publications originales. *Trusted-AI.* (Wiki consulté en 2024). *GitHub*. [https://github.com/Trusted-AI/adversarial-robustness-toolbox/wiki/ART-Attacks](https://github.com/Trusted-AI/adversarial-robustness-toolbox/wiki/ART-Attacks)
 
@@ -790,7 +798,7 @@ L'entreprise a développé un modèle de détection de pièces d'identités fals
 * **Attaques L0 (Concept Général & Few-Pixel Attack) :** Modifient un très petit nombre de pixels. Su, J., Vargas, D. V., & Sakurai, K. (2019). One pixel attack for fooling deep neural networks. *IEEE Transactions on Evolutionary Computation*, *23*(5), 828-841.
 * **Transformations Spatiales comme Attaques Adversariales :** Étude de la robustesse aux rotations et translations. Engstrom, L., Tran, B., Tsipras, D., Schmidt, L., & Madry, A. (2017). Exploring the landscape of spatial robustness. *arXiv preprint arXiv:1712.02779*.
 
-### Périmètre 5 : Infrastructure et Outillage MLOps
+### 7.5. Étape 5 : Infrastructure et Outillage MLOps
 
 * **Systématisation des connaissances sur les vulnérabilités de chaîne d'approvisionnement :** Wang, S., Zhao, Y., Liu, Z., Zou, Q., & Wang, H. (2025). SoK: Understanding Vulnerabilities in the Large Language Model Supply Chain. *arXiv preprint arXiv:2502.12497*.
 * **Mesure des attaques d'empoisonnement par code malveillant :** Zhao, J., Wang, S., Zhao, Y., Hou, X., Wang, K., Gao, P., Zhang, Y., Wei, C. & Wang, H. (2024). Models Are Codes: Towards Measuring Malicious Code Poisoning Attacks on Pre-trained Model Hubs. *In 39th IEEE/ACM International Conference on Automated Software Engineering (ASE ’24)*.
@@ -802,7 +810,7 @@ L'entreprise a développé un modèle de détection de pièces d'identités fals
 
 
 
-### Outils
+### 7.6. Outils
 
 * **Outil de scan de sécurité pour modèles ML (ProtectAI) :** détection de code dans les modèles. ProtectAI. *ModelScan: A tool to detect security issues in ML models*. [https://github.com/protectai/modelscan](https://github.com/protectai/modelscan).
 * **Outil de décompilation Pickle (Trail of Bits) :** analyse des fichiers Pickle. Trail of Bits. *Fickling: A decompiler, static analyzer, and bytecode rewriter for Python pickle files*. [https://github.com/trailofbits/fickling](https://github.com/trailofbits/fickling).
