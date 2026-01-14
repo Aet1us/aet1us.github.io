@@ -16,7 +16,7 @@ p, ul, ol, table, pre, dl {
 }
 
 h1, h2, h3 {
-  line-height:1.1;
+  line-height:1.1;;
 }
 
 h1 {
@@ -108,7 +108,7 @@ header {
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
-  left: 50px;
+  left: 100px;
 }
 
 header ul {
