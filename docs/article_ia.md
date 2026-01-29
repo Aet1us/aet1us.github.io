@@ -6,7 +6,7 @@
 **Auteur:** Jules BADER, penetration tester et auditeur cyber au Cyslab de CGI Business Consulting France.
 
 > Le Laboratoire de Cybersécurité CGI offre une gamme complète de prestations de sécurité simulant des actions offensives et proposant des mesures défensives, quel que soit votre secteur d’activité. Ces prestations sont reconnues pour leur niveau d’expertise et pour des résultats adaptés à la menace auxquels vous êtes exposée. Qualifié PASSI RGS et PASSI LPM depuis 2015, le Cyslab répond aux exigences les plus élevées de sécurité et réunies des compétences d’auditeurs de premier plan
-  - Équipe de 25 consultants disposant de certifications reconnues (OSCP+, OSEP, OSWP, AWS, EBIOS-RM, CEH…)
+  - Équipe de 25 consultants disposant de certifications reconnues (OSCP+, OSEP, OSWP, AWS, EBIOS-RM, …)
   - Activité de recherche et développement en outillage (Ligolo-ng, Filet-o-Phish) et découverte de vulnérabilités de typezero-day (Nokia, SAP, …)
   - Des livrables didactiques et adaptés à votre écosystème, destinés tant aux équipes techniques que managériales. Chaque chemin d’attaque est illustré pour comprendre les conditions du scénario et ses conséquences.
   - Découvrez notre offre sur <https://www.cgi.com/france/fr-fr/cybersecurite/audit-tests-intrusion>
@@ -63,7 +63,7 @@ C'est ici que les données brutes entrent dans le système. Compromettre cette p
     * *Contournement de validation d'API :* exploiter une validation laxiste des types, formats, bornes, ou schémas. Injecter des valeurs extrêmes (`Infinity`, `NaN`, très grands/petits nombres), des types inattendus (tableau au lieu de chaîne de caractères), ou des structures conçues pour causer des erreurs en aval.
     * *Détournement du format de fichier :* téléverser des fichiers (CSV, JSON, etc.) contenant des enregistrements malveillants (par exemple, caractères de contrôle, encodages alternatifs).
 
-    ~~~http
+    ```http
     POST /api/v1/sensor_data HTTP/1.1
     Host: data-ingest.target.corp
     Content-Type: application/json
@@ -78,7 +78,7 @@ C'est ici que les données brutes entrent dans le système. Compromettre cette p
         // Caractères spéciaux / Unicode pour tester la robustesse du parsing/nettoyage
         "notes": "Test with null byte \u0000 and emojis "
     }
-    ~~~
+    ```
 
   * **Attaque « Witches' Brew » :** une forme avancée d'empoisonnement où l'attaquant utilise de multiples entrées apparemment légitimes mais légèrement modifiées. Chaque échantillon seul a un impact minimal et peut échapper à la détection d'anomalies, mais leur effet cumulatif, une fois intégré dans le modèle lors de l'entraînement, crée une porte dérobée (backdoor) robuste ou une dégradation ciblée des performances. L'efficacité repose sur la combinaison et la quantité de ces enregistrements subtilement modifiés.
   

@@ -5,4 +5,5 @@ plugins:
 source: ./docs
 markdown: kramdown
 kramdown:
-  syntax_highlighter: coderay
+  input: GFM
+  syntax_highlighter: rouge
