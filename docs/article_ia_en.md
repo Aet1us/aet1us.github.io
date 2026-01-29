@@ -5,6 +5,7 @@ layout: default
 # AI System Intrusion Methodology: Attacking Machine Learning End-to-End, from Source to Service
 {:.no_toc}
 
+[Version FRANÇAISE](https://aet1us.github.io/article_ia)
 **Author:** Jules BADER, penetration tester and cyber auditor at Cyslab, CGI Business Consulting France.
 
 > The CGI Cybersecurity Laboratory offers a full range of security services simulating offensive actions and proposing defensive measures, whatever your sector of activity. These services are recognized for their level of expertise and for results adapted to the threat to which you are exposed. Qualified PASSI RGS and PASSI LPM (French government security certifications) since 2015, Cyslab meets the highest security requirements and brings together the skills of leading auditors.

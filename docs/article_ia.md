@@ -5,6 +5,7 @@ layout: default
 # Méthodologie d'intrusion dans les systèmes d'IA : Attaquer l'apprentissage machine de bout-en-bout, de la source au service
 {:.no_toc}
 
+[ENGLISH version](https://aet1us.github.io/article_ia_en)
 **Auteur:** Jules BADER, penetration tester et auditeur cyber au Cyslab de CGI Business Consulting France.
 
 > Le Laboratoire de Cybersécurité CGI offre une gamme complète de prestations de sécurité simulant des actions offensives et proposant des mesures défensives, quel que soit votre secteur d’activité. Ces prestations sont reconnues pour leur niveau d’expertise et pour des résultats adaptés à la menace auxquels vous êtes exposée. Qualifié PASSI RGS et PASSI LPM depuis 2015, le Cyslab répond aux exigences les plus élevées de sécurité et réunies des compétences d’auditeurs de premier plan
