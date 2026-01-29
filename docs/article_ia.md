@@ -715,7 +715,7 @@ L'entreprise a développé un modèle de détection de pièces d'identités fals
 ### VII.1. Étape 1 : Mécanismes (pipelines) d'ingestion et de prétraitement des futures données d'apprentissage
 
 * **Best Practices & Tools for Effective ETL Processing** (medium.com - Jesús Cantú) [https://medium.com/@jesus.cantu217/best-practices-tools-for-effective-etl-processing-587df5582104](https://medium.com/@jesus.cantu217/best-practices-tools-for-effective-etl-processing-587df5582104)
-* **Securing the RAG ingestion pipeline: Filtering mechanisms | Amazon Web Services** (aws.amazon.com) [https://aws.amazon.com/blogs/security/securing-the-rag-ingestion-pipeline-filtering-mechanisms/](https://aws.amazon.com/blogs/security/securing-the-rag-ingestion-pipeline-filtering-mechanisms/)
+* **Securing the RAG ingestion pipeline: Filtering mechanisms - Amazon Web Services** (aws.amazon.com) [https://aws.amazon.com/blogs/security/securing-the-rag-ingestion-pipeline-filtering-mechanisms/](https://aws.amazon.com/blogs/security/securing-the-rag-ingestion-pipeline-filtering-mechanisms/)
 * **Protecting Against Poisoned Pipeline Execution - CI/CD ...** (practical-devsecops.com) [https://www.practical-devsecops.com/protecting-against-poisoned-pipeline-execution-ci-cd-security/](https://www.practical-devsecops.com/protecting-against-poisoned-pipeline-execution-ci-cd-security/)
 
 ### VII.2. Étape 2 : L'environnement d'entraînement
@@ -791,13 +791,13 @@ L'entreprise a développé un modèle de détection de pièces d'identités fals
 
 ### VII.5. Étape 5 : Infrastructure et Outillage MLOps
 
+*   **Exploitation de GitHub Actions via des entrées non fiables :** Vincent, H. (Synacktiv). (2024, 2 Juillet). *GitHub Actions exploitation: untrusted input*. [https://www.synacktiv.com/publications/github-actions-exploitation-untrusted-input](https://www.synacktiv.com/publications/github-actions-exploitation-untrusted-input)
 * **Systématisation des connaissances sur les vulnérabilités de chaîne d'approvisionnement :** Wang, S., Zhao, Y., Liu, Z., Zou, Q., & Wang, H. (2025). SoK: Understanding Vulnerabilities in the Large Language Model Supply Chain. *arXiv preprint arXiv:2502.12497*.
 * **Mesure des attaques d'empoisonnement par code malveillant :** Zhao, J., Wang, S., Zhao, Y., Hou, X., Wang, K., Gao, P., Zhang, Y., Wei, C. & Wang, H. (2024). Models Are Codes: Towards Measuring Malicious Code Poisoning Attacks on Pre-trained Model Hubs. *In 39th IEEE/ACM International Conference on Automated Software Engineering (ASE ’24)*.
 * **Présentation sur le Red Teaming avec des modèles ML (Hugging Face) :** Wood, A. (2023). You sound … confused - anyways - thanks for the jewels. *Présentation au DEFCON AI Village*.
 * **Détournement de compte et attaques réseau interne dans Kubeflow :** Analyse des vulnérabilités dans Kubeflow. Huntr. *Account Hijacking and Internal Network Attacks in Kubeflow*. [https://blog.huntr.com/account-hijacking-and-internal-network-attacks-in-kubeflow](https://blog.huntr.com/account-hijacking-and-internal-network-attacks-in-kubeflow).
 * **Analyse à grande échelle des vulnérabilités de la plateforme Hugging Face :** Kathikar, A., Nair, A., Lazarine, B., Sachdeva, A., Samtani, S., & Anderson, H. Assessing the Vulnerabilities of the Open-Source Artificial Intelligence (AI) Landscape: A Large-Scale Analysis of the Hugging Face Platform. *Data Science and Artificial Intelligence Lab at the Kelley School of Business*.
 * **Rapport de l'ENISA sur la sécurisation des algorithmes d'apprentissage machine :** ENISA (European Union Agency for Cybersecurity). (2021, Décembre). *Securing Machine Learning Algorithms*.
-*   **Exploitation de GitHub Actions via des entrées non fiables :** Vincent, H. (Synacktiv). (2024, 2 Juillet). *GitHub Actions exploitation: untrusted input*. [https://www.synacktiv.com/publications/github-actions-exploitation-untrusted-input](https://www.synacktiv.com/publications/github-actions-exploitation-untrusted-input)
 
 
 ### VII.6. Outils
