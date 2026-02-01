@@ -36,7 +36,7 @@ To help overwhelmed auditors navigating this vast scope, this article groups con
 
 For each phase, we will dive into typical targets and specific exploitation techniques, with maximum actionable technical details.
 
-![LLM Lifecycle](images/schema_white.svg)
+![LLM Lifecycle](images/schema_white_en.svg)
 
 ## II. Step 1: Ingestion and preprocessing pipelines for future training data
 
