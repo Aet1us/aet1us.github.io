@@ -366,7 +366,7 @@ L'application permet aux utilisateurs de soumettre des photos de lésions cutan�
   * **Métier :** Le risque est une erreur de diagnostic systématique et contrôlable par un attaquant, exposant l'entreprise à des poursuites judiciaires et à une perte de réputation catastrophique.
 
 
-## V. Étape 5 : Services d'inférence et Interfaces de production
+## V. Étape 4 : Services d'inférence et Interfaces de production
 
 Ce périmètre s'intéresse à la phase de production du modèle d'IA : lorsqu'il est déployé, actif et interagit avec le monde extérieur, que ce soit des utilisateurs finaux ou d'autres systèmes automatisés. C'est la phase où le modèle, en opération, produit des résultats concrets.. Dans ce contexte, une **instance** fait référence à une version opérationnelle et exécutable du modèle, chargée, configurée et prête à effectuer des **inférences** (c'est-à-dire, le processus par lequel le modèle utilise les données d'entrée pour générer une sortie de type prédiction, génération ou autre) via une interface exposée. Les menaces ici sont doubles : elles exploitent à la fois les vulnérabilités classiques des applications et services web qui exposent le modèle, et les faiblesses intrinsèques ou comportementales du modèle lui-même lorsqu'il est sollicité en conditions réelles.
 

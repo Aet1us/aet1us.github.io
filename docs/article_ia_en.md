@@ -354,7 +354,7 @@ The application allows users to submit photos of skin lesions for preliminary ri
     *   **Technical:** The production model has been replaced by a version containing a remotely triggerable backdoor.
     *   **Business:** The risk is a systematic diagnostic error controllable by an attacker, exposing the company to lawsuits and catastrophic reputation loss.
 
-## V. Step 5: Inference Services and Production Interfaces
+## V. Step 4: Inference Services and Production Interfaces
 
 This perimeter looks at the model's production phase: when it is deployed, active, and interacting with the outside world, be it end users or other automated systems. This is the phase where the model, in operation, produces concrete results. In this context, an **instance** refers to an operational and executable version of the model, loaded, configured, and ready to perform **inferences** (i.e., the process by which the model uses input data to generate an output like prediction, generation, or other) via an exposed interface. Threats here are twofold: they exploit both classic vulnerabilities of web applications and services exposing the model, and intrinsic or behavioral weaknesses of the model itself when solicited under real conditions.
 
@@ -723,7 +723,7 @@ The company developed an ID forgery detection model. This model is continuously 
 *   **GGUF File Format Vulnerabilities:** Guide on vulnerabilities specific to GGUF format. Huntr. *GGUF File Format Vulnerabilities: A Guide for Hackers*. [https://blog.huntr.com/gguf-file-format-vulnerabilities-a-guide-for-hackers](https://blog.huntr.com/gguf-file-format-vulnerabilities-a-guide-for-hackers).
 *   **Keras Lambda Exploits in TensorFlow Models:** Explanation of possible exploits via Keras Lambda layers. Huntr. *Exposing Keras Lambda Exploits in TensorFlow Models*. [https://blog.huntr.com/exposing-keras-lambda-exploits-in-tensorflow-models](https://blog.huntr.com/exposing-keras-lambda-exploits-in-tensorflow-models).
 
-### VII.4. Step 5: Inference Services and Production Interfaces
+### VII.4. Step 4: Inference Services and Production Interfaces
 
 *   **ART Adversarial Attack Catalogue:** Presentation and classification of the attacks (evasion, poisoning, extraction, inference) implemented in the Adversarial Robustness Toolbox (ART) library, with links to the original publications. *Trusted-AI.* (Wiki accessed in 2024). *GitHub*. [https://github.com/Trusted-AI/adversarial-robustness-toolbox/wiki/ART-Attacks](https://github.com/Trusted-AI/adversarial-robustness-toolbox/wiki/ART-Attacks)
 
